@@ -1,6 +1,7 @@
 html,body{
 	height: 100%;
 	width: 100%;
+	background-color: rgb(25,25,25);
 	padding: 0;
 	margin: 0;
 }
@@ -8,7 +9,11 @@ html,body{
 	border-radius: 50%;
 	height: 30px;
 	width: 30px;
-	background-color: #19C6FF;
-	border: 2px solid black;
+	background-color: #098ab5;
+	border: 2px solid white;
 	position: absolute;
+}
+.circle:hover{
+	cursor: pointer;
+	background-color: #07c1ff;
 }
