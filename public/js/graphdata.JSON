@@ -1,0 +1,74 @@
+var data = 
+{
+    "nodes": [
+        {
+            "class_name": "pit",
+    		"coordinates": {
+                "x": "526",
+    			"y": "316"
+            },
+            "size": "1"
+        },
+        {
+            "class_name": "bit",
+            "coordinates": {
+                "x": "567",
+                "y": "367"
+            },
+            "size": "0.5"
+        },
+        {
+            "class_name": "bob",
+            "coordinates": {
+                "x": "1021",
+                "y": "123"
+            },
+            "size": "1"
+        }
+        ,
+        {
+            "class_name": "top",
+            "coordinates": {
+                "x": "726",
+                "y": "516"
+            },
+            "size": "1"
+        }
+        ,
+        {
+            "class_name": "job",
+            "coordinates": {
+                "x": "39",
+                "y": "35"
+            },
+            "size": "1"
+        }
+        ,
+        {
+            "class_name": "lob",
+            "coordinates": {
+                "x": "926",
+                "y": "316"
+            },
+            "size": "1"
+        }
+        ,
+        {
+            "class_name": "as",
+            "coordinates": {
+                "x": "1026",
+                "y": "516"
+            },
+            "size": "1"
+        }
+        ,
+        {
+            "class_name": "serene",
+            "coordinates": {
+                "x": "826",
+                "y": "316"
+            },
+            "size": "1"
+        }
+    ]
+};
