@@ -28,7 +28,7 @@ div{
 	height: 30px;
 	width: 30px;
 	background-color: #0099cc;
-	border: 1px solid white;
+	border: 2px solid white;
 	position: absolute;
 }
 .circle:hover{

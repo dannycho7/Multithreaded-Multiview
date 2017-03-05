@@ -1,3 +1,5 @@
+counter = 0;
+timesegments = [];
 function lightUp(){
 	var text = document.getElementById('input').value;
 	if(document.getElementById(text)){
@@ -18,8 +20,8 @@ function create_circle(json_data){
 	node.className += " " + json_data.unique_name; //This is added again into classes so we can parse correctly
 	node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*50) + 'px';
 	node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*80) + 'px';	
-	node.style.height = 10 * parseFloat(json_data.size) + 'px';
-	node.style.width = 10 * parseFloat(json_data.size) + 'px';	
+	node.style.height = 40 * parseFloat(json_data.size) + 'px';
+	node.style.width = 40 * parseFloat(json_data.size) + 'px';	
 	container.appendChild(node);
 	return node;
 }
@@ -58,17 +60,30 @@ function connect(div1, div2, color, thickness) {
     // angle
     var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
     // make hr
-    var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
-    document.body.innerHTML += htmlLine;
-    console.log(htmlLine);
+    var htmlLine = document.createElement('div');
+    htmlLine.className = 'line';
+    htmlLine.style.padding = '0px';
+    htmlLine.style.height = thickness + "px";
+    htmlLine.style.backgroundColor = color;
+    htmlLine.style.lineHeight = '1px';    
+    htmlLine.style.position = "absolute";
+    htmlLine.style.left = cx + "px";
+    htmlLine.style.top = cy + "px";
+    htmlLine.style.width = length + "px";
+    htmlLine.style.transform = "rotate(" + angle + "deg)";
+    document.body.appendChild(htmlLine);
+    setTimeout(function (){
+    	htmlLine.parentNode.removeChild(htmlLine);
+    }, 10000);
 }
 
 function findMethod(methodOwner, methodName){
 	var method_arr = document.getElementsByClassName(methodName);
+	console.log("Owner: " + methodOwner + "methodName : " + methodName);
 	var method;
 	if (method_arr.length > 0 ){
 		//loop through and find the correct method based on the owner of the method
-		for ( var x in method_arr) {
+		for ( var x = 0 ; x < method_arr.length; x ++) {
 			if ( method_arr[x].classList.contains(methodOwner) ){
 				method = method_arr[x];
 				break;
@@ -100,7 +115,7 @@ function draw_connections(timesplice){
 		var method1 = findMethod(timesplice[i][0][0],timesplice[i][0][1]);
 		var method2 = findMethod(timesplice[i][1][0],timesplice[i][1][1]);
 		var color = "rgba(255,255,255,0.4)";
-		if(timesplice[i].length == 3 ){
+		if(timesplice[i][0].length == 3 || timesplice[i][1].length == 3 ){
 			color = "#cb3232"; //red
 		}
 		connect(method1,method2,color,1);
@@ -147,9 +162,48 @@ function initial_load(){
 function load_nodes(data){
 	data = JSON.parse(data);
 	if (data['graph']){
-		draw_connections(data['graph']);
+		counter++;
+		timesegments.push(data['graph']);
+		draw_connections(timesegments[timesegments.length - 1]);
 	}
  	if (data['chat']){
-		UpdateTwitchStream(data['chat']);
+		UpdateTwitchStream(timesegments[timesegments.length - 1]);
 	}
 }
+
+function deleteAll(){
+	var len = document.getElementsByClassName('line');
+	for ( var i = len - 1; i >= 0; i -- ){
+		len[i].parentNode.removeChild(len[i]);
+	}
+}
+
+function skip(direction){
+	if( direction == "left" ){
+		if(counter == 0){
+			return;
+		}
+		deleteAll();
+		draw_connections(timesegments[counter--]);
+	}
+	else if ( direction == "right"){
+		if(counter == timesegments.length){
+			return;
+		}
+		deleteAll();
+		draw_connections(timesegments[counter++]);
+	}
+}
+var skipping = window.addEventListener('keydown',function(key){
+	if(key.ctrlKey){
+		skip("left");
+		console.log("left");
+	}
+	else if (key.shiftKey){
+		skip("right");
+		console.log("right");
+	}
+});
+window.addEventListener('keyup',function(key){
+	window.removeEventListener('keyup',skipping);
+});
