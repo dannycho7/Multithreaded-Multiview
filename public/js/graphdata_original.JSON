@@ -1,18 +1,3 @@
-var timesplice = 
-[
-	[["Game", "newGame"], ["NaturalInput", "reqInput"]], 
-	[["NaturalInput", "reqInput"], ["Game", "newGame"]], 
-	[["Game", "newGame"], ["NaturalInput", "reqInput"]], 
-	[["NaturalInput", "reqInput"], ["Game", "newGame"]], 
-	[["Game", "newGame"], ["NaturalInput", "reqInput"]], 
-	[["NaturalInput", "reqInput"], ["Game", "newGame"]], 
-	[["Game", "newGame"], ["NaturalInput", "reqInput"]], 
-	[["NaturalInput", "reqInput"], ["Game", "newGame"]], 
-	[["Game", "newGame"], ["NaturalInput", "reqInput"]], 
-	[["NaturalInput", "reqInput"], ["Game", "run"]], 
-	[["Game", "run"], ["GUI", "renderGrid"]]
-];
-
 var original = 
 {
 	"GUI": {"methods": ["__init__", "renderWelcome", "renderNewGame", "renderIntroduction", "renderEndGame", "interceptReceptor", "renderExit", "renderGrid"], "file": "GUI.py"}, 

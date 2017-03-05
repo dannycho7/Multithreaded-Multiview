@@ -60,6 +60,7 @@ function connect(div1, div2, color, thickness) {
     // make hr
     var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
     document.body.innerHTML += htmlLine;
+    console.log(htmlLine);
 }
 
 function findMethod(methodOwner, methodName){
@@ -98,12 +99,57 @@ function draw_connections(timesplice){
 	for (var i in timesplice){
 		var method1 = findMethod(timesplice[i][0][0],timesplice[i][0][1]);
 		var method2 = findMethod(timesplice[i][1][0],timesplice[i][1][1]);
-		connect(method1,method2,"rgba(255,255,255,0.4)",1);
+		var color = "rgba(255,255,255,0.4)";
+		if(timesplice[i].length == 3 ){
+			color = "#cb3232"; //red
+		}
+		connect(method1,method2,color,1);
 	}
 }
 
+var asyncLoop = function(o){
+    var i=-1;
+ 
+    var loop = function(){
+        i++;
+        if(i==o.length){o.callback(); return;}
+        o.functionToLoop(loop, i);
+    }
+    loop();//init
+}
+ 
+ 
+function UpdateTwitchStream(dataStream){
+  asyncLoop({
+      length : dataStream.length,
+      functionToLoop : function(loop, i){
+          setTimeout(function(){
+                var node = document.createElement("li");
+                var textnode = document.createTextNode(dataStream[i]);
+                node.appendChild(textnode);
+                document.getElementById("chatList").appendChild(node);
+                if (document.getElementById('chatList').childElementCount > 10){            
+                  document.getElementById('chatList').removeChild(document.getElementById('chatList').getElementsByTagName('li')[0]);
+                }
+              loop();
+          },1000);
+      },
+      callback : function(){
+      }    
+  });
+ }
+ 
 
-function load_nodes(){
+function initial_load(){
 	render_circles(data);
-	draw_connections(timesplice);
+}
+
+function load_nodes(data){
+	data = JSON.parse(data);
+	if (data['graph']){
+		draw_connections(data['graph']);
+	}
+ 	if (data['chat']){
+		UpdateTwitchStream(data['chat']);
+	}
 }

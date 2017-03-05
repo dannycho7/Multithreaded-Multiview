@@ -3,6 +3,9 @@ var app = express();
 var http = require('http').Server(app);
 var path = require('path');
 var io = require('socket.io')(http);
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 app.set('port',( process.env.PORT || 5000 ));
 
@@ -12,9 +15,12 @@ app.get('/', function (req, res) {
    res.sendFile(path.join(__dirname + '/public/html/graph.html'));
 });
 
-app.get('/update', function(req,res){
-	res.sendFile(path.join(__dirname + '/public/html/update.html'));
-	io.sockets.emit('update', req.query.data );
+app.post('/update', function(req,res){
+	console.log("Received post");
+	console.log(req.body);
+	console.log(req.headers);
+	io.sockets.emit('update', req.body.data );
+	res.end();
 });
 
 io.on('connection', function(socket){ console.log("received connection"); });
