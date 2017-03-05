@@ -1,6 +1,7 @@
 var original = 
 {
-	"Go": {"methods": ["serve_forever", "__init__"], "file": "/home/em/projects/csdesign/server02.py"}, "_": {}, 
+	"Go": {"methods": ["serve_forever", "__init__"], "file": "/home/em/projects/csdesign/server02.py"}, "_": {},
+	"stdlib":{"methods": ["cout","cin","stderr","stdout",,"cind","stds","stdoutsd",,"cinsa","stdesrr","stdouqt",,"ecin","stdesrr","stdeout","exit","continue","return","find","replace","replaceAll","length()","size()","reverse"]},
 	"Thread1": {"parents": ["_Verbose"], "methods": ["__bootstrap_inner", "daemon", "ident", "run", "name", "setName", "_block", "__stop", "getName", "setDaemon", "_set_ident", "start", "__delete", "isDaemon", "__repr__", "__bootstrap", "isAlive", "join", "_set_daemon", "_reset_internal_locks", "__init__"], "file": "/usr/lib/python2.7/threading.py"},
 	"Thread2": {"parents": ["_Verbose"], "methods": ["__bootstrap_inner", "daemon", "ident", "run", "name", "setName", "_block", "__stop", "getName", "setDaemon", "_set_ident", "start", "__delete", "isDaemon", "__repr__", "__bootstrap", "isAlive", "join", "_set_daemon", "_reset_internal_locks", "__init__"], "file": "/usr/lib/python2.7/threading.py"},
 	"Thread3": {"parents": ["_Verbose"], "methods": ["__bootstrap_inner", "daemon", "ident", "run", "name", "setName", "_block", "__stop", "getName", "setDaemon", "_set_ident", "start", "__delete", "isDaemon", "__repr__", "__bootstrap", "isAlive", "join", "_set_daemon", "_reset_internal_locks", "__init__"], "file": "/usr/lib/python2.7/threading.py"}

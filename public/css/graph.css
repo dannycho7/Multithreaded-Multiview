@@ -35,9 +35,15 @@ div{
 	cursor: pointer;
 	background-color: #07c1ff;
 }
+.stdlib{
+	background-color: rgba(25,25,25,0.6);
+}
+.stdlib{
+	background-color: rgba(25,25,25,0.9);
+}
 #chatList{
 	padding: 0;
-	overflow-y: hidden;
+	overflow: hidden;
 	height: 500px;
 	border: 1px solid white;
 	border-radius: 2px;

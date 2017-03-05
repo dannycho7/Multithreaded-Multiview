@@ -18,10 +18,10 @@ function create_circle(json_data){
 	node.className = "circle";
 	node.className += " " + json_data.parent_data;
 	node.className += " " + json_data.unique_name; //This is added again into classes so we can parse correctly
-	node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*50) + 'px';
-	node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*80) + 'px';	
-	node.style.height = 40 * parseFloat(json_data.size) + 'px';
-	node.style.width = 40 * parseFloat(json_data.size) + 'px';	
+	node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*70) + 'px';
+	node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*100) + 'px';	
+	node.style.height = 50 * parseFloat(json_data.size) + 'px';
+	node.style.width = 50 * parseFloat(json_data.size) + 'px';	
 	container.appendChild(node);
 	return node;
 }
@@ -65,7 +65,7 @@ function connect(div1, div2, color, thickness) {
     htmlLine.style.padding = '0px';
     htmlLine.style.height = thickness + "px";
     htmlLine.style.backgroundColor = color;
-    htmlLine.style.lineHeight = '1px';    
+    htmlLine.style.lineHeight = '3px';    
     htmlLine.style.position = "absolute";
     htmlLine.style.left = cx + "px";
     htmlLine.style.top = cy + "px";
@@ -79,7 +79,6 @@ function connect(div1, div2, color, thickness) {
 
 function findMethod(methodOwner, methodName){
 	var method_arr = document.getElementsByClassName(methodName);
-	console.log("Owner: " + methodOwner + "methodName : " + methodName);
 	var method;
 	if (method_arr.length > 0 ){
 		//loop through and find the correct method based on the owner of the method
@@ -118,7 +117,14 @@ function draw_connections(timesplice){
 		if(timesplice[i][0].length == 3 || timesplice[i][1].length == 3 ){
 			color = "#cb3232"; //red
 		}
-		connect(method1,method2,color,1);
+		stdcolor = "rgba(255,255,255,0.1)";
+		connect(method1,method2,color,3);
+		var stdlib = data.nodes[Math.floor(Math.random()*data.nodes.length)];
+		while(stdlib.parent_data != "stdlib"){
+			stdlib = data.nodes[Math.floor(Math.random()*data.nodes.length)];
+		}
+		stdlib = document.getElementById(stdlib.unique_name);
+		connect(stdlib,method2,stdcolor,3);
 	}
 }
 
@@ -143,7 +149,7 @@ function UpdateTwitchStream(dataStream){
                 var textnode = document.createTextNode(dataStream[i]);
                 node.appendChild(textnode);
                 document.getElementById("chatList").appendChild(node);
-                if (document.getElementById('chatList').childElementCount > 10){            
+                if (document.getElementById('chatList').childElementCount > 15){            
                   document.getElementById('chatList').removeChild(document.getElementById('chatList').getElementsByTagName('li')[0]);
                 }
               loop();
@@ -197,11 +203,9 @@ function skip(direction){
 var skipping = window.addEventListener('keydown',function(key){
 	if(key.ctrlKey){
 		skip("left");
-		console.log("left");
 	}
 	else if (key.shiftKey){
 		skip("right");
-		console.log("right");
 	}
 });
 window.addEventListener('keyup',function(key){
