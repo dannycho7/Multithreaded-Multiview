@@ -6,10 +6,10 @@ function render_circles(){
 		node.id = json_data.class_name;
 		node.title = "Class name: " + node.id;
 		node.className = "circle";
-		node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*20) + 'px';
-		node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*20) + 'px';	
-		node.style.height = 15 * parseFloat(json_data.size) + 'px';
-		node.style.width = 15 * parseFloat(json_data.size) + 'px';	
+		node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*50) + 'px';
+		node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*80) + 'px';	
+		node.style.height = 8 * parseFloat(json_data.size) + 'px';
+		node.style.width = 8 * parseFloat(json_data.size) + 'px';	
 		container.appendChild(node);
 	}
 }
