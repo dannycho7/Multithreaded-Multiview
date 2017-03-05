@@ -1,6 +1,5 @@
 function lightUp(){
 	var text = document.getElementById('input').value;
-	console.log(text);
 	if(document.getElementById(text)){
 		document.getElementById(text).style.backgroundColor="#00d168";
 	}
@@ -25,8 +24,8 @@ function create_circle(json_data){
 	return node;
 }
 
-function render_circles(){
-	for (var node_entry in data.nodes ){
+function render_circles(data_json){
+	for (var node_entry in data_json.nodes ){
 		create_circle(data.nodes[node_entry]);
 	}
 }
@@ -64,16 +63,13 @@ function connect(div1, div2, color, thickness) {
 }
 
 function findMethod(methodOwner, methodName){
-	console.log("findMethod called");
 	var method_arr = document.getElementsByClassName(methodName);
 	var method;
 	if (method_arr.length > 0 ){
-		console.log("Entered if statement");
 		//loop through and find the correct method based on the owner of the method
 		for ( var x in method_arr) {
 			if ( method_arr[x].classList.contains(methodOwner) ){
 				method = method_arr[x];
-				console.log("method is now : " + method );
 				break;
 			}
 		}
@@ -94,15 +90,13 @@ function findMethod(methodOwner, methodName){
 			}
 		}
 		method = create_circle(json_data);
-		console.log("method is now : " + method );
 	}
 	return method;
 }
 
-function draw_connections(){
+function draw_connections(timesplice){
 	for (var i in timesplice){
 		var method1 = findMethod(timesplice[i][0][0],timesplice[i][0][1]);
-		console.log("method 1 : " + method1);
 		var method2 = findMethod(timesplice[i][1][0],timesplice[i][1][1]);
 		connect(method1,method2,"rgba(255,255,255,0.4)",1);
 	}
@@ -110,6 +104,6 @@ function draw_connections(){
 
 
 function load_nodes(){
-	render_circles();
-	draw_connections();
+	render_circles(data);
+	draw_connections(timesplice);
 }

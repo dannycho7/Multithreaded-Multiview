@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Graph</title>
+	<script src="/socket.io/socket.io.js"></script>
 	<link rel="stylesheet" type="text/css" href="/static/css/graph.css">
 	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
@@ -12,10 +13,15 @@
 			<input id = "input" type="text" name="search">
 			<input type="submit" name="submit" onclick="lightUp(); return false;">
 		</form>
+		<ul id="twitchList">
+		  <li>Coffee</li>
+		  <li>Tea</li>
+		</ul>
 	</div><!--
 	--><div id = "node-container"></div>
 </body>
 <script type="text/javascript" src="/static/js/graphdata_original.JSON"></script>
 <script type="text/javascript" src="/static/js/parse_graph_data.js"></script>
 <script type="text/javascript" src="/static/js/graph.js"></script>
+<script type="text/javascript" src="/static/js/web-socket.js"></script>
 </html>
