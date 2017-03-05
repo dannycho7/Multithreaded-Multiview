@@ -8,9 +8,9 @@
 <body onload = "load_nodes()">
 	<div id = "left-container">
 		<h1>Code is fun.</h1>
-		<form action="">
-			<input type="text" name="search">
-			<input type="submit" name="submit">
+		<form>
+			<input id = "input" type="text" name="search">
+			<input type="submit" name="submit" onclick="lightUp(); return false;">
 		</form>
 	</div><!--
 	--><div id = "node-container"></div>

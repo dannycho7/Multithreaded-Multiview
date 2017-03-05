@@ -1,6 +1,5 @@
 data = {"nodes":[]};
 function add_more(json_entry){
-	console.log(json_entry);
 	for ( var sub_entries in json_entry ){
 		if ( sub_entries != undefined ){
 			if ( sub_entries == 'parents' ) {

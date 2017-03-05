@@ -54,3 +54,11 @@ function load_nodes(){
 		connect(random1,random2,"rgba(255,255,255,0.4)",1);
 	}
 }
+
+function lightUp(){
+	var text = document.getElementById('input').value;
+	console.log(text);
+	if(document.getElementById(text)){
+		document.getElementById(text).style.backgroundColor="#00d168";
+	}
+}
