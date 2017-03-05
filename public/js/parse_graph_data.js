@@ -1,12 +1,13 @@
 data = {"nodes":[]};
-function add_more(json_entry){
+function add_more(json_entry,parent_name){
 	for ( var sub_entries in json_entry ){
 		if ( sub_entries != undefined ){
 			if ( sub_entries == 'parents' ) {
 				//add in parent nodes
 				for ( var parent_entries in json_entry[sub_entries] ){
 					var entry_data = {};
-					entry_data['class_name'] = json_entry[sub_entries][parent_entries];
+					entry_data['unique_name'] = json_entry[sub_entries][parent_entries];
+					entry_data['parent_data'] = parent_name;
 					entry_data['size'] = 0.8;
 					occupied_area_x += Math.floor( (Math.random() * 9) - 4 );
 					var occupied_y_entry = occupied_area_y + Math.floor( (Math.random() * 9) - 4 );
@@ -21,7 +22,8 @@ function add_more(json_entry){
 				//add in child node
 				for ( var children_entries in json_entry[sub_entries] ){
 					var entry_data = {};
-					entry_data['class_name'] = json_entry[sub_entries][children_entries];
+					entry_data['unique_name'] = json_entry[sub_entries][children_entries];
+					entry_data['parent_data'] = parent_name;
 					entry_data['size'] = 0.5;
 					occupied_area_x += Math.floor( (Math.random() * 6) - 3 );
 					var occupied_y_entry = occupied_area_y + Math.floor( (Math.random() * 6) - 3 );
@@ -36,8 +38,9 @@ function add_more(json_entry){
 				//add in variable speck
 				for ( var method_entries in json_entry[sub_entries] ){
 					var entry_data = {};
-					entry_data['class_name'] = json_entry[sub_entries][method_entries];
-					entry_data['size'] = 0.1;
+					entry_data['unique_name'] = json_entry[sub_entries][method_entries];
+					entry_data['parent_data'] = parent_name;
+					entry_data['size'] = 0.2;
 					occupied_area_x += Math.floor( (Math.random() * 2) - 1 );
 					var occupied_y_entry = occupied_area_y + Math.floor( (Math.random() * 2) - 1 );
 					if( occupied_area_x + offset >= windowWidth ){
@@ -66,9 +69,10 @@ for( var name in original){
 		occupied_area_x = Math.floor( (Math.random() * offset) );
 		occupied_area_y += Math.floor(node_avg_area);
 	}
-	entry_data['class_name'] = name;
+	entry_data['unique_name'] = name;
+	entry_data['parent_data'] = name;
 	entry_data['coordinates'] = {"x" : occupied_area_x ,  "y": occupied_area_y };
 	entry_data['size'] = 1;
 	data.nodes.push(entry_data);
-	add_more(original[name]);
+	add_more(original[name],name);
 }

@@ -1,18 +1,36 @@
-function render_circles(){
-	var container = document.getElementById("node-container");
-	for (var node_entry in data.nodes ){
-		var json_data = data.nodes[node_entry];
-		var node = document.createElement('div');
-		node.id = json_data.class_name;
-		node.title = "Class name: " + node.id;
-		node.className = "circle";
-		node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*50) + 'px';
-		node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*80) + 'px';	
-		node.style.height = 10 * parseFloat(json_data.size) + 'px';
-		node.style.width = 10 * parseFloat(json_data.size) + 'px';	
-		container.appendChild(node);
+function lightUp(){
+	var text = document.getElementById('input').value;
+	console.log(text);
+	if(document.getElementById(text)){
+		document.getElementById(text).style.backgroundColor="#00d168";
 	}
 }
+
+//creates a circle utilizing JSON format data passed in as a parameter
+//JSON data should include data entries: 
+// id, parent_data, unique_name, size, coordinates : { x , y }
+function create_circle(json_data){
+	var container = document.getElementById("node-container");
+	var node = document.createElement('div');
+	node.id = json_data.unique_name; //The name of the class or method name
+	node.title = "Name: " + node.id;
+	node.className = "circle";
+	node.className += " " + json_data.parent_data;
+	node.className += " " + json_data.unique_name; //This is added again into classes so we can parse correctly
+	node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*50) + 'px';
+	node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*80) + 'px';	
+	node.style.height = 10 * parseFloat(json_data.size) + 'px';
+	node.style.width = 10 * parseFloat(json_data.size) + 'px';	
+	container.appendChild(node);
+	return node;
+}
+
+function render_circles(){
+	for (var node_entry in data.nodes ){
+		create_circle(data.nodes[node_entry]);
+	}
+}
+
 function getOffset( el ) {
     var rect = el.getBoundingClientRect();
     return {
@@ -45,20 +63,53 @@ function connect(div1, div2, color, thickness) {
     document.body.innerHTML += htmlLine;
 }
 
-function load_nodes(){
-	render_circles();
-	var circles = document.getElementsByClassName('circle');
-	for ( var i = 0 ; i < circles.length/3 ; i ++){
-		var random1 = circles[Math.floor(Math.random()*circles.length)];
-		var random2 = circles[Math.floor(Math.random()*circles.length)];
-		connect(random1,random2,"rgba(255,255,255,0.4)",1);
+function findMethod(methodOwner, methodName){
+	console.log("findMethod called");
+	var method_arr = document.getElementsByClassName(methodName);
+	var method;
+	if (method_arr.length > 0 ){
+		console.log("Entered if statement");
+		//loop through and find the correct method based on the owner of the method
+		for ( var x in method_arr) {
+			if ( method_arr[x].classList.contains(methodOwner) ){
+				method = method_arr[x];
+				console.log("method is now : " + method );
+				break;
+			}
+		}
+	}
+	
+	if (method == undefined || method == null) {
+		//create a new node for the method with the correct ownership
+		//compute the x and y coordinates based off of the parent
+		var method_x = document.getElementById(methodOwner).style.left + (Math.random() * 4);
+		var method_y = document.getElementById(methodOwner).style.top + (Math.random() * 4);
+		var json_data = {
+			"unique_name" : methodName,
+			"parent_data": methodOwner,
+			"size": 0.2,
+			"coordinates":{
+				"x": method_x,
+				"y": method_y
+			}
+		}
+		method = create_circle(json_data);
+		console.log("method is now : " + method );
+	}
+	return method;
+}
+
+function draw_connections(){
+	for (var i in timesplice){
+		var method1 = findMethod(timesplice[i][0][0],timesplice[i][0][1]);
+		console.log("method 1 : " + method1);
+		var method2 = findMethod(timesplice[i][1][0],timesplice[i][1][1]);
+		connect(method1,method2,"rgba(255,255,255,0.4)",1);
 	}
 }
 
-function lightUp(){
-	var text = document.getElementById('input').value;
-	console.log(text);
-	if(document.getElementById(text)){
-		document.getElementById(text).style.backgroundColor="#00d168";
-	}
+
+function load_nodes(){
+	render_circles();
+	draw_connections();
 }
