@@ -3,29 +3,51 @@ function add_more(json_entry){
 	console.log(json_entry);
 	for ( var sub_entries in json_entry ){
 		if ( sub_entries != undefined ){
-			var entry_data = {};
-			entry_data['class_name'] = name;
-			occupied_area_x += Math.floor( (Math.random() * 12) );
-			occupied_area_y += Math.floor( (Math.random() * 10) - 5 );
-			if( occupied_area_x + offset >= windowWidth ){
-				console.log(name);
-				occupied_area_x = windowWidth - offset - 10;
-			}
-			entry_data['class_name'] = name;
-			entry_data['coordinates'] = {"x" : occupied_area_x ,  "y": occupied_area_y };
 			if ( sub_entries == 'parents' ) {
-				//add in parent node
-				entry_data['size'] = 1.5;
+				//add in parent nodes
+				for ( var parent_entries in json_entry[sub_entries] ){
+					var entry_data = {};
+					entry_data['class_name'] = json_entry[sub_entries][parent_entries];
+					entry_data['size'] = 0.8;
+					occupied_area_x += Math.floor( (Math.random() * 9) - 4 );
+					var occupied_y_entry = occupied_area_y + Math.floor( (Math.random() * 9) - 4 );
+					if( occupied_area_x + offset >= windowWidth ){
+						occupied_area_x = windowWidth - offset - 10;
+					}
+					entry_data['coordinates'] = {"x" : occupied_area_x ,  "y": occupied_y_entry };
+					data.nodes.push(entry_data);
+				}
 			}
 			if ( sub_entries == 'children' ){
 				//add in child node
-				entry_data['size'] = 0.5;
+				for ( var children_entries in json_entry[sub_entries] ){
+					var entry_data = {};
+					entry_data['class_name'] = json_entry[sub_entries][children_entries];
+					entry_data['size'] = 0.5;
+					occupied_area_x += Math.floor( (Math.random() * 6) - 3 );
+					var occupied_y_entry = occupied_area_y + Math.floor( (Math.random() * 6) - 3 );
+					if( occupied_area_x + offset >= windowWidth ){
+						occupied_area_x = windowWidth - offset - 10;
+					}
+					entry_data['coordinates'] = {"x" : occupied_area_x ,  "y": occupied_y_entry };
+					data.nodes.push(entry_data);
+				}
 			}
-			if ( sub_entries == 'variables' ){
+			if ( sub_entries == 'methods' ){
 				//add in variable speck
-				entry_data['size'] = 1;
+				for ( var method_entries in json_entry[sub_entries] ){
+					var entry_data = {};
+					entry_data['class_name'] = json_entry[sub_entries][method_entries];
+					entry_data['size'] = 0.1;
+					occupied_area_x += Math.floor( (Math.random() * 2) - 1 );
+					var occupied_y_entry = occupied_area_y + Math.floor( (Math.random() * 2) - 1 );
+					if( occupied_area_x + offset >= windowWidth ){
+						occupied_area_x = windowWidth - offset - 10;
+					}
+					entry_data['coordinates'] = {"x" : occupied_area_x ,  "y": occupied_y_entry };
+					data.nodes.push(entry_data);
+				}
 			}
-			data.nodes.push(entry_data);
 		}
 	}
 }

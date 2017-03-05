@@ -14,7 +14,7 @@ html,body{
 	height: 30px;
 	width: 30px;
 	background-color: #098ab5;
-	border: 2px solid white;
+	border: 1px solid white;
 	position: absolute;
 }
 .circle:hover{

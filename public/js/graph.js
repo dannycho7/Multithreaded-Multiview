@@ -8,8 +8,8 @@ function render_circles(){
 		node.className = "circle";
 		node.style.left = parseInt(json_data.coordinates.x)  + Math.floor(Math.random()*50) + 'px';
 		node.style.top = parseInt(json_data.coordinates.y)  + Math.floor(Math.random()*80) + 'px';	
-		node.style.height = 8 * parseFloat(json_data.size) + 'px';
-		node.style.width = 8 * parseFloat(json_data.size) + 'px';	
+		node.style.height = 10 * parseFloat(json_data.size) + 'px';
+		node.style.width = 10 * parseFloat(json_data.size) + 'px';	
 		container.appendChild(node);
 	}
 }
@@ -23,7 +23,8 @@ function getOffset( el ) {
     };
 }
 
-function connect(div1, div2, color, thickness) { // draw a line connecting elements
+//draws a line to connect the two circles
+function connect(div1, div2, color, thickness) { 
     var off1 = getOffset(div1);
     var off2 = getOffset(div2);
     // bottom right
@@ -41,8 +42,6 @@ function connect(div1, div2, color, thickness) { // draw a line connecting eleme
     var angle = Math.atan2((y1-y2),(x1-x2))*(180/Math.PI);
     // make hr
     var htmlLine = "<div style='padding:0px; margin:0px; height:" + thickness + "px; background-color:" + color + "; line-height:1px; position:absolute; left:" + cx + "px; top:" + cy + "px; width:" + length + "px; -moz-transform:rotate(" + angle + "deg); -webkit-transform:rotate(" + angle + "deg); -o-transform:rotate(" + angle + "deg); -ms-transform:rotate(" + angle + "deg); transform:rotate(" + angle + "deg);' />";
-    //
-    // alert(htmlLine);
     document.body.innerHTML += htmlLine;
 }
 
@@ -52,6 +51,6 @@ function load_nodes(){
 	for ( var i = 0 ; i < circles.length/3 ; i ++){
 		var random1 = circles[Math.floor(Math.random()*circles.length)];
 		var random2 = circles[Math.floor(Math.random()*circles.length)];
-		connect(random1,random2,"rgba(255,255,255,0.4)",2);
+		connect(random1,random2,"rgba(255,255,255,0.4)",1);
 	}
 }
