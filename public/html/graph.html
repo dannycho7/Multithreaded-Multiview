@@ -3,9 +3,17 @@
 <head>
 	<title>Graph</title>
 	<link rel="stylesheet" type="text/css" href="/static/css/graph.css">
+	<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
 </head>
 <body onload = "load_nodes()">
-	<div id = "node-container"></div>
+	<div id = "left-container">
+		<h1>Code is fun.</h1>
+		<form action="">
+			<input type="text" name="search">
+			<input type="submit" name="submit">
+		</form>
+	</div><!--
+	--><div id = "node-container"></div>
 </body>
 <script type="text/javascript" src="/static/js/graphdata_original.JSON"></script>
 <script type="text/javascript" src="/static/js/parse_graph_data.js"></script>
