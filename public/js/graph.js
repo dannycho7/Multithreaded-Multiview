@@ -113,7 +113,7 @@ function draw_connections(timesplice){
 	for (var i in timesplice){
 		var method1 = findMethod(timesplice[i][0][0],timesplice[i][0][1]);
 		var method2 = findMethod(timesplice[i][1][0],timesplice[i][1][1]);
-		var color = "rgba(255,255,255,0.4)";
+		var color = "rgba(54, 148, 34, 0.2)";
 		if(timesplice[i][0].length == 3 || timesplice[i][1].length == 3 ){
 			color = "#cb3232"; //red
 		}
