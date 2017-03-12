@@ -5,8 +5,10 @@ var path = require('path');
 var io = require('socket.io')(http);
 var bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
+//Accepting post request parameter in the body
+app.use(bodyParser.urlencoded({ extended: true })); 
 
+//setting port variable for being uploaded to Google App Engine and local testing
 app.set('port',( process.env.PORT || 5000 ));
 
 app.use('/static', express.static(path.join(__dirname, 'public')));
