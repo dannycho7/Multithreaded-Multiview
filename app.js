@@ -28,5 +28,5 @@ app.post('/update', function(req,res){
 io.on('connection', function(socket){ console.log("received connection"); });
 
 http.listen(app.get('port'), function () {
-  console.log('HackTech visualization running on port ' + app.get('port'));
+  console.log('Visualization running on port ' + app.get('port'));
 });
